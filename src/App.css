@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar-link {
+  font-size: 20px;  /* Make the text larger */
+  margin-right: 15px;  /* Add some spacing between the links */
+}
