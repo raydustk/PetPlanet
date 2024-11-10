@@ -10,7 +10,7 @@ const Home = () => {
   }, [fetchProducts]);
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Welcome to Pet Planet</h1>
       <ProductList products={products} />
     </div>

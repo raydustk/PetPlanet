@@ -1,47 +1,186 @@
+/* Fijar la navbar al top de la pantalla */
+.navbar {
+  display: flex;
+  align-items: center; /* Centra los items verticalmente */
+  padding: 10px;
+  position: fixed;  /* Fija la navbar al top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #242424; /* Fondo oscuro para la navbar */
+  z-index: 1000;  /* Asegura que la navbar esté por encima de otros elementos */
+  justify-content: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+/* Logo de la navbar */
+.logo-link img {
+  height: 40px; /* Ajustar el tamaño del logo */
+  margin-left: 120px;
+  margin-right: 20px; /* Espacio entre el logo y los enlaces */
+}
+
+/* Foto de perfil */
+.pfp img {
+  height: 40px; /* Ajustar el tamaño de la foto de perfil */
+  border-radius: 50%; /* Hacer la imagen redonda */
+  margin-left: 20px; /* Espacio entre los enlaces y la foto de perfil */
+}
+
+/* Barra de búsqueda */
+.search-container {
+  margin-left: 80px; /* Separación entre los enlaces y la barra de búsqueda */
+  margin-right: 60px;
+}
+
+.search-input {
+  width: 250px; /* Ajustar el tamaño de la barra de búsqueda */
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2e5179; /* Cambiar color al foco */
+}
+
+/* Links de la navbar */
+.navbar-link {
+  font-size: 20px; /* Hacer el texto más grande */
+  margin-right: 60px; /* Espaciado entre los enlaces */
+  display: flex;
+  align-items: center; /* Centrar verticalmente los enlaces con el logo */
+  color: #fff; /* Hacer que el texto sea blanco */
+  text-decoration: none; /* Eliminar el subrayado de los enlaces */
+}
+
+/* Espacio adicional para evitar que se peguen los enlaces a la barra de búsqueda */
+.navbar-link:hover {
+  color: #2e5179; /* Cambiar el color al pasar el ratón */
+}
+
+/* Ajustar el contenido principal para que no se solape con la navbar */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 80px; /* Dejar espacio para la navbar fija */
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Fondo claro para el resto de la página */
+body {
+  background-color: #ffffff; /* Fondo blanco para el cuerpo */
+  color: #213547; /* Color oscuro para el texto */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Estilos generales */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #2e5179;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #2e5179;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #2e5179;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
   }
-  to {
-    transform: rotate(360deg);
+
+  a:hover {
+    color: #2e5179;
+  }
+
+  button {
+    background-color: #f9f9f9;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Establecer la imagen de fondo para toda la página */
+body {
+  background-image: url('https://i.ibb.co/yfmg4FW/photo-1600354279787-0a726615ef44-1.jpg');
+  background-size: cover; /* La imagen cubre todo el fondo */
+  background-position: center center; /* Centra la imagen en la pantalla */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-attachment: fixed; /* Hace que la imagen quede fija mientras se hace scroll */
+  width: 100%; /* Hace que ocupe todo el ancho */
+  height: 100vh; /* Asegura que la imagen cubra al menos toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Alinea el contenido hacia la parte superior */
 }
 
-.card {
-  padding: 2em;
+/* Estilo para el contenedor de Home (sin fondo) */
+.home-container {
+  position: relative;
+  z-index: 1; /* Asegura que el contenido de la página quede encima del fondo */
+  width: 100%;
+  color: #fff; /* Asegura que el texto sea blanco para destacarse sobre el fondo */
+  padding: 20px;
 }
 
-.read-the-docs {
-  color: #888;
-}
-
-.navbar-link {
-  font-size: 20px;  /* Make the text larger */
-  margin-right: 15px;  /* Add some spacing between the links */
+/* Sombra para el texto en h1 */
+.home-container h1 {
+  font-size: 3.5rem; /* Ajusta el tamaño de la fuente */
+  color: white; /* Asegura que el texto sea blanco */
+  text-shadow: 2px 2px 9px rgba(0, 0, 0, 0.364); /* Agrega sombra al texto */
+  margin: 0;
+  padding: 10px;
 }
