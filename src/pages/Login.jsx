@@ -1,41 +1,28 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { GlobalContext } from '../context/GlobalContext';
+import axios from 'axios';
 
 const Login = () => {
   const { setUser } = useContext(GlobalContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // To show error messages
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to the login endpoint
-      const response = await axios.post('http://localhost:5000/api/login', {
-        email,
-        password,
+      const response = await axios.post('/login', { username: email, password });
+      const { token } = response.data;
+
+      // Assuming your backend includes user details in the response:
+      const userResponse = await axios.get('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Save the token to localStorage for future use
-      localStorage.setItem('token', response.data.token);
-
-      // Set the user in the global context with response data (e.g., user info)
-      setUser(response.data.user);
-
-      // Clear the error message (if any)
+      setUser(userResponse.data);
       setError('');
-      
-      // Optionally redirect to a different page after login (e.g., dashboard)
-      window.location.href = '/dashboard'; // Replace '/dashboard' with the correct route
-      alert('Login successful!');
     } catch (err) {
-      // Handle errors (e.g., invalid credentials or server error)
-      if (err.response && err.response.status === 401) {
-        setError('Invalid email or password');
-      } else {
-        setError('An error occurred. Please try again later.');
-      }
+      setError('Invalid email or password.');
     }
   };
 
@@ -56,9 +43,10 @@ const Login = () => {
         required
       />
       <button type="submit">Login</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p>{error}</p>}
     </form>
   );
+  
 };
 
 export default Login;

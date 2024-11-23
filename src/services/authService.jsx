@@ -1,22 +1,22 @@
 const jwt = require('jsonwebtoken');
-const { findUserByUsername } = require('../models/userModel');
+const { findUserByEmail } = require('../models/userModel'); // Update to use findUserByEmail
 const bcrypt = require('bcryptjs');
 
-// Generar un token JWT
+// Generate a JWT token
 const generateToken = (userId) => {
     return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
-// Validar credenciales del usuario
-const validateCredentials = async (username, password) => {
-    const user = await findUserByUsername(username);
+// Validate user credentials
+const validateCredentials = async (email, password) => {
+    const user = await findUserByEmail(email); // Adjust to query by email
     if (!user) {
-        throw new Error('Usuario no encontrado');
+        throw new Error('User not found');
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        throw new Error('Credenciales inválidas');
+        throw new Error('Invalid credentials');
     }
 
     return user;
