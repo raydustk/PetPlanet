@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';  // Asegúrate de importar axios
 
 const Register = () => {
   const { setUser } = useContext(GlobalContext);
@@ -19,24 +20,37 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+        alert("Passwords do not match!");
+        return;
     }
 
-    // Simular registro y actualizar contexto global
-    setUser({
-      fullName: formData.fullName,
-      email: formData.email,
-      city: formData.city,
-      birthday: formData.birthday,
-    });
+    try {
+        const response = await axios.post('/register', {
+            email: formData.email,
+            username: formData.email, // Usamos el email como username
+            password: formData.password,
+            fullName: formData.fullName,
+            city: formData.city,
+            birthday: formData.birthday,
+        });
 
-    // Redirigir a la página de perfil
-    navigate('/profile');
-  };
+        // Simular el inicio de sesión tras registro
+        setUser({
+            fullName: formData.fullName,
+            email: formData.email,
+            city: formData.city,
+            birthday: formData.birthday,
+        });
+
+        navigate('/profile'); // Redirigir al perfil
+    } catch (error) {
+        console.error('Error registering user:', error);
+        alert('Error creating account. Please try again.');
+    }
+};
 
   return (
     <form onSubmit={handleSubmit}>

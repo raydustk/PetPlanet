@@ -11,15 +11,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/login', { username: email, password });
-      const { token } = response.data;
+      // Enviar los datos de login al backend
+      const response = await axios.post('/api/login', { username: email, password });
+      const { token } = response.data;  // Obtener el token JWT de la respuesta
 
-      // Assuming your backend includes user details in the response:
-      const userResponse = await axios.get('/profile', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      // Guardar el token en el localStorage o en el contexto
+      localStorage.setItem('token', token);  // Guarda el token en el localStorage
 
-      setUser(userResponse.data);
+      // Asumiendo que el backend incluye los detalles del usuario en la respuesta, como el nombre
+      setUser({ username: email });  // Guardar los detalles del usuario en el contexto (global)
+
       setError('');
     } catch (err) {
       setError('Invalid email or password.');
@@ -46,7 +47,6 @@ const Login = () => {
       {error && <p>{error}</p>}
     </form>
   );
-  
 };
 
 export default Login;

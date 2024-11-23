@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { GlobalContext } from '../context/GlobalContext';  // Importamos el contexto para obtener el usuario
 
 const Navbar = () => {
+  const { user, setUser } = useContext(GlobalContext);  // Accedemos al usuario desde el contexto
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Eliminar el token del localStorage
+    setUser(null); // Limpiar el contexto del usuario
+  };
+
   return (
     <nav className="navbar">
       {/* Logo */}
@@ -20,14 +28,26 @@ const Navbar = () => {
 
       {/* Links */}
       <Link to="/" className="navbar-link">Home</Link>
-      <Link to="/login" className="navbar-link">Login</Link>
-      <Link to="/register" className="navbar-link">Register</Link>
-      <Link to="/create-post" className="navbar-link">Create Post</Link>
+      
+      {/* Si el usuario está autenticado, mostramos opciones de perfil y logout */}
+      {user ? (
+        <>
+          <Link to="/profile" className="navbar-link">Profile</Link>
+          <button onClick={handleLogout} className="navbar-link">Logout</button>
+        </>
+      ) : (
+        <>
+          <Link to="/login" className="navbar-link">Login</Link>
+          <Link to="/register" className="navbar-link">Register</Link>
+        </>
+      )}
 
       {/* Foto de perfil */}
-      <Link to="/profile" className="pfp">
-        <img src="src/assets/user_2550359 (1).png" alt="foto de perfil" />
-      </Link>
+      {user && (
+        <Link to="/profile" className="pfp">
+          <img src="src/assets/user_2550359 (1).png" alt="foto de perfil" />
+        </Link>
+      )}
     </nav>
   );
 };
